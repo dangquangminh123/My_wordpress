@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>RONIN &#8211; My WordPress</title>
+	<atom:link href="http://localhost/myproject/wordpress-5.8/wordpress/tu-khoa-san-pham/ronin/feed/" rel="self" type="application/rss+xml" />
+	<link>https://dangquangminh123.github.io/My_wordpress</link>
+	<description>Một trang web mới sử dụng WordPress</description>
+	<lastBuildDate>Sat, 25 Sep 2021 05:25:38 +0000</lastBuildDate>
+	<language>vi</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.8.1</generator>
+	<item>
+		<title>S.H.FIGUARTS RONIN</title>
+		<link>https://dangquangminh123.github.io/My_wordpress/sản%20phẩm/s-h-figuarts-ronin/</link>
+					<comments>https://dangquangminh123.github.io/My_wordpress/sản%20phẩm/s-h-figuarts-ronin/#respond</comments>
+		
+		<dc:creator><![CDATA[DANGQUANGMINH]]></dc:creator>
+		<pubDate>Fri, 24 Sep 2021 17:30:47 +0000</pubDate>
+				<guid isPermaLink="false">https://dangquangminh123.github.io/My_wordpress/?post_type=product&#038;p=233</guid>
+
+					<description><![CDATA[<img class="alignnone size-full wp-image-235" src="https://dangquangminh123.github.io/My_wordpress/wp-content/uploads/2021/09/item_0000012890_KbwyfqMR_04.jpg" alt="" width="857" height="1200" />
+Thông số kỹ thuật của sản phẩm
+Chiều cao tổng thể: Khoảng 150mm
+Chất liệu: PVC, ABS
+
+■ Nội dung cài đặt
+・ Thân chính
+・ Bộ phận đầu
+thay thế ・ Cổ tay thay thế mỗi bên trái và phải 2 loại
+・ Kiếm
+・ Vỏ bọc
+・ Gươm
+lắp ・ Vỏ gắn]]></description>
+										<content:encoded><![CDATA[<p><code><iframe loading="lazy" width="560" height="315" src="https://www.youtube.com/embed/iWbuLClZpRg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></code><br />
+<img loading="lazy" src="https://dangquangminh123.github.io/My_wordpress/wp-content/uploads/2021/09/item_0000012890_KbwyfqMR_05.jpg" alt="" width="857" height="1200" class="alignnone size-full wp-image-234" /></p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://dangquangminh123.github.io/My_wordpress/sản%20phẩm/s-h-figuarts-ronin/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+	</channel>
+</rss>

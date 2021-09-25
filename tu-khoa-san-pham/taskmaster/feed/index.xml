@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>TASKMASTER &#8211; My WordPress</title>
+	<atom:link href="http://localhost/myproject/wordpress-5.8/wordpress/tu-khoa-san-pham/taskmaster/feed/" rel="self" type="application/rss+xml" />
+	<link>https://dangquangminh123.github.io/My_wordpress</link>
+	<description>Một trang web mới sử dụng WordPress</description>
+	<lastBuildDate>Fri, 24 Sep 2021 17:20:45 +0000</lastBuildDate>
+	<language>vi</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.8.1</generator>
+	<item>
+		<title>S.H.FIGUARTS TASKMASTER</title>
+		<link>https://dangquangminh123.github.io/My_wordpress/sản%20phẩm/s-h-figuarts-taskmaster/</link>
+					<comments>https://dangquangminh123.github.io/My_wordpress/sản%20phẩm/s-h-figuarts-taskmaster/#respond</comments>
+		
+		<dc:creator><![CDATA[DANGQUANGMINH]]></dc:creator>
+		<pubDate>Fri, 24 Sep 2021 17:20:25 +0000</pubDate>
+				<guid isPermaLink="false">https://dangquangminh123.github.io/My_wordpress/?post_type=product&#038;p=223</guid>
+
+					<description><![CDATA[<img class="alignnone size-full wp-image-225" src="https://dangquangminh123.github.io/My_wordpress/wp-content/uploads/2021/09/item_0000013225_j3qU42eL_01.jpg" alt="" width="857" height="1200" />
+Thông số kỹ thuật của sản phẩm
+Chiều cao tổng thể: Khoảng 150mm
+Chất liệu: ABS, PVC
+
+■ Nội dung đặt
+・ Thân chính
+・ Cổ tay thay thế bên trái 3 loại Bên phải 5 loại
+・ Bộ phận mũ trùm
+thay thế
+・ Bộ phận kính thay thế・ Súng
+・ Kiếm
+・ Tấm chắn
+・ Cung]]></description>
+										<content:encoded><![CDATA[<p><code><iframe loading="lazy" title="YouTube video player" src="https://www.youtube.com/embed/8iHttsYj3oA" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe></code><br />
+<img loading="lazy" class="alignnone size-full wp-image-224" src="https://dangquangminh123.github.io/My_wordpress/wp-content/uploads/2021/09/item_0000013225_j3qU42eL_06.jpg" alt="" width="857" height="1200" /></p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://dangquangminh123.github.io/My_wordpress/sản%20phẩm/s-h-figuarts-taskmaster/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+	</channel>
+</rss>

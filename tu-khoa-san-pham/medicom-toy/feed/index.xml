@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>MEDICOM TOY &#8211; My WordPress</title>
+	<atom:link href="http://localhost/myproject/wordpress-5.8/wordpress/tu-khoa-san-pham/medicom-toy/feed/" rel="self" type="application/rss+xml" />
+	<link>https://dangquangminh123.github.io/My_wordpress</link>
+	<description>Một trang web mới sử dụng WordPress</description>
+	<lastBuildDate>Sat, 25 Sep 2021 09:12:01 +0000</lastBuildDate>
+	<language>vi</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.8.1</generator>
+	<item>
+		<title>DOCTOR STRANGE</title>
+		<link>https://dangquangminh123.github.io/My_wordpress/sản%20phẩm/doctor-strange/</link>
+					<comments>https://dangquangminh123.github.io/My_wordpress/sản%20phẩm/doctor-strange/#respond</comments>
+		
+		<dc:creator><![CDATA[DANGQUANGMINH]]></dc:creator>
+		<pubDate>Sat, 25 Sep 2021 09:12:00 +0000</pubDate>
+				<guid isPermaLink="false">https://dangquangminh123.github.io/My_wordpress/?post_type=product&#038;p=308</guid>
+
+					<description><![CDATA[Tia sét ma thuật, tàng hình, đi xuyên qua vật thể, trục xuất đối phương tới chiều không gian khác, bay, dịch chuyển tức thời tới mọi nơi trong vũ trụ, điều khiển đồ vật, điều khiển thời gian (làm chậm, dừng và du hành xuyên thời gian), thay đổi cấu trúc vật chất... Dr. Strange còn có thể dùng ma thuật làm lành nhanh chóng các vết thương.
+
+<img class="alignnone size-full wp-image-170" src="https://dangquangminh123.github.io/My_wordpress/wp-content/uploads/2021/09/7aee9863281ce77451085a895d0f0478.jpg" alt="" width="1024" height="1024" />]]></description>
+										<content:encoded><![CDATA[<p><img loading="lazy" class="alignnone size-full wp-image-146" src="https://dangquangminh123.github.io/My_wordpress/wp-content/uploads/2021/09/0015_210124_9iect2_h.jpg" alt="" width="418" height="608" /> <img loading="lazy" class="alignnone size-full wp-image-169" src="https://dangquangminh123.github.io/My_wordpress/wp-content/uploads/2021/09/item_0000013376_9Hnalaoc_07.jpg" alt="" width="857" height="1200" /></p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://dangquangminh123.github.io/My_wordpress/sản%20phẩm/doctor-strange/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+	</channel>
+</rss>
