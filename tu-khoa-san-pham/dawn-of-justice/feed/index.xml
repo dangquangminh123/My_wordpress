@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>DAWN OF JUSTICE &#8211; My WordPress</title>
+	<atom:link href="http://localhost/myproject/wordpress-5.8/wordpress/tu-khoa-san-pham/dawn-of-justice/feed/" rel="self" type="application/rss+xml" />
+	<link>https://dangquangminh123.github.io/My_wordpress</link>
+	<description>Một trang web mới sử dụng WordPress</description>
+	<lastBuildDate>Thu, 30 Sep 2021 10:59:37 +0000</lastBuildDate>
+	<language>vi</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.8.1</generator>
+	<item>
+		<title>MAFEX BATMAN DAWN OF JUSTICE</title>
+		<link>https://dangquangminh123.github.io/My_wordpress/product/mafex-batman-dawn-of-justice/</link>
+					<comments>https://dangquangminh123.github.io/My_wordpress/product/mafex-batman-dawn-of-justice/#respond</comments>
+		
+		<dc:creator><![CDATA[DANGQUANGMINH]]></dc:creator>
+		<pubDate>Wed, 29 Sep 2021 04:42:10 +0000</pubDate>
+				<guid isPermaLink="false">https://dangquangminh123.github.io/My_wordpress/?post_type=product&#038;p=362</guid>
+
+					<description><![CDATA[<img class="alignnone size-full wp-image-365" src="https://dangquangminh123.github.io/My_wordpress/wp-content/uploads/2021/09/10359824p.jpg" alt="" width="1082" height="1200" />
+
+Trong tất cả các bộ giáp và bộ quần áo trong danh sách này, có lẽ dễ nhận ra nhất là bộ giáp sức mạnh của Người Dơi từ tác phẩm bán kết của Frank Miller, The Dark Knight Returns. Phần lớn áo giáp và bộ quần áo thay thế của Batman đã xuất hiện trong vũ trụ New 52; tuy nhiên, bộ giáp sức mạnh The Dark Knight Returns đã tồn tại hơn ba thập kỷ.]]></description>
+										<content:encoded><![CDATA[<p><img loading="lazy" class="alignnone size-full wp-image-364" src="https://dangquangminh123.github.io/My_wordpress/wp-content/uploads/2021/09/batman_armored_mafex_1513483215_dc66e8d1.jpg" alt="" width="638" height="640" /></p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://dangquangminh123.github.io/My_wordpress/product/mafex-batman-dawn-of-justice/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+	</channel>
+</rss>
