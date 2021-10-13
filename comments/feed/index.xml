@@ -8,10 +8,10 @@
 <channel>
 	<title>
 	Bình luận cho My WordPress	</title>
-	<atom:link href="http://localhost/myproject/wordpress-5.8/wordpress/comments/feed/" rel="self" type="application/rss+xml" />
+	<atom:link href="http://localhost/MWP/wordpress/comments/feed/" rel="self" type="application/rss+xml" />
 	<link>https://dangquangminh123.github.io/My_wordpress</link>
 	<description>Một trang web mới sử dụng WordPress</description>
-	<lastBuildDate>Tue, 05 Oct 2021 13:57:38 +0000</lastBuildDate>
+	<lastBuildDate>Wed, 13 Oct 2021 07:04:52 +0000</lastBuildDate>
 	<sy:updatePeriod>
 	hourly	</sy:updatePeriod>
 	<sy:updateFrequency>

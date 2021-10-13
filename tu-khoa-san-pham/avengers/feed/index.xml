@@ -9,10 +9,10 @@
 
 <channel>
 	<title>AVENGERS &#8211; My WordPress</title>
-	<atom:link href="http://localhost/myproject/wordpress-5.8/wordpress/tu-khoa-san-pham/avengers/feed/" rel="self" type="application/rss+xml" />
+	<atom:link href="http://localhost/MWP/wordpress/tu-khoa-san-pham/avengers/feed/" rel="self" type="application/rss+xml" />
 	<link>https://dangquangminh123.github.io/My_wordpress</link>
 	<description>Một trang web mới sử dụng WordPress</description>
-	<lastBuildDate>Mon, 04 Oct 2021 12:32:02 +0000</lastBuildDate>
+	<lastBuildDate>Tue, 12 Oct 2021 11:55:33 +0000</lastBuildDate>
 	<language>vi</language>
 	<sy:updatePeriod>
 	hourly	</sy:updatePeriod>

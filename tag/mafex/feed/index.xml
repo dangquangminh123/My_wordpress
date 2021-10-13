@@ -9,7 +9,7 @@
 
 <channel>
 	<title>MAFEX &#8211; My WordPress</title>
-	<atom:link href="http://localhost/myproject/wordpress-5.8/wordpress/tag/mafex/feed/" rel="self" type="application/rss+xml" />
+	<atom:link href="http://localhost/MWP/wordpress/tag/mafex/feed/" rel="self" type="application/rss+xml" />
 	<link>https://dangquangminh123.github.io/My_wordpress</link>
 	<description>Một trang web mới sử dụng WordPress</description>
 	<lastBuildDate>Tue, 05 Oct 2021 13:57:38 +0000</lastBuildDate>

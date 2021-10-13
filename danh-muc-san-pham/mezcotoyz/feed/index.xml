@@ -9,7 +9,7 @@
 
 <channel>
 	<title>MEZCOTOYZ &#8211; My WordPress</title>
-	<atom:link href="http://localhost/myproject/wordpress-5.8/wordpress/danh-muc-san-pham/mezcotoyz/feed/" rel="self" type="application/rss+xml" />
+	<atom:link href="http://localhost/MWP/wordpress/danh-muc-san-pham/mezcotoyz/feed/" rel="self" type="application/rss+xml" />
 	<link>https://dangquangminh123.github.io/My_wordpress</link>
 	<description>Một trang web mới sử dụng WordPress</description>
 	<lastBuildDate>Sat, 25 Sep 2021 03:37:41 +0000</lastBuildDate>
