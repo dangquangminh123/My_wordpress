@@ -74,7 +74,7 @@ button:disabled{opacity:.45}
     <div class="controls">
       <button id="start" class="primary">🚀 Bắt đầu</button>
       <button id="pause" disabled>⏸ Tạm dừng</button>
-      <button id="music">🔊 Nhạc: Bật</button>
+      <button id="music">🎵 Bật nhạc</button>
       <button id="reset">↻ Chơi lại</button>
     </div>
 
@@ -106,7 +106,7 @@ const arena=$('arena'), scoreEl=$('score'), comboEl=$('combo'), timeEl=$('time')
       musicBtn=$('music'), result=$('result');
 
 let score=0,combo=1,streak=0,time=45,running=false,paused=false;
-let timer=null,spawnTimer=null,musicEnabled=true,audioCtx=null,musicLoop=null,musicStep=0;
+let timer=null,spawnTimer=null,musicEnabled=true,musicAudio=null,musicUrl=null;
 let activeAnimations=[];
 
 const baseItems=[
@@ -214,64 +214,112 @@ function spawn(){
   },c.life);
 }
 
-function initAudio(){
-  if(audioCtx)return;
-  const AC=window.AudioContext||window.webkitAudioContext;
-  if(!AC)return;
-  audioCtx=new AC();
-}
-function tone(freq,start,dur,type='sine',gain=.035){
-  if(!audioCtx||!musicEnabled)return;
-  const o=audioCtx.createOscillator(), g=audioCtx.createGain();
-  o.type=type;o.frequency.value=freq;
-  g.gain.setValueAtTime(0,start);
-  g.gain.linearRampToValueAtTime(gain,start+.015);
-  g.gain.exponentialRampToValueAtTime(.0001,start+dur);
-  o.connect(g).connect(audioCtx.destination);
-  o.start(start);o.stop(start+dur+.03);
-}
-function drum(start){
-  if(!audioCtx||!musicEnabled)return;
-  const o=audioCtx.createOscillator(), g=audioCtx.createGain();
-  o.type='sine';o.frequency.setValueAtTime(115,start);o.frequency.exponentialRampToValueAtTime(55,start+.12);
-  g.gain.setValueAtTime(.05,start);g.gain.exponentialRampToValueAtTime(.0001,start+.16);
-  o.connect(g).connect(audioCtx.destination);o.start(start);o.stop(start+.18);
-}
-const melody=[
-  659,784,880,784,659,587,659,784,
-  880,988,880,784,659,784,659,587,
-  523,659,784,659,587,523,587,659,
-  784,880,784,659,587,659,523,587
-];
-function scheduleMusicBar(){
-  if(!audioCtx||!musicEnabled||!running||paused)return;
-  const now=audioCtx.currentTime+.04;
-  const beat=.24;
-  for(let i=0;i<8;i++){
-    const f=melody[(musicStep+i)%melody.length];
-    tone(f,now+i*beat,.19,'triangle',.025);
-    if(i%2===0)tone(f/2,now+i*beat,.22,'sine',.012);
-    if(i===0||i===4)drum(now+i*beat);
+function buildMusic(){
+  if(musicAudio)return;
+  try{
+    const sr=11025, beat=.34;
+    const melody=[
+      659,784,880,784,659,587,659,784,
+      880,988,880,784,659,784,659,587,
+      523,659,784,659,587,523,587,659,
+      784,880,784,659,587,659,523,587
+    ];
+    const duration=melody.length*beat;
+    const samples=Math.floor(sr*duration);
+    const buffer=new ArrayBuffer(44+samples*2);
+    const view=new DataView(buffer);
+    const writeStr=(off,s)=>{for(let i=0;i<s.length;i++)view.setUint8(off+i,s.charCodeAt(i))};
+    writeStr(0,'RIFF');
+    view.setUint32(4,36+samples*2,true);
+    writeStr(8,'WAVE');
+    writeStr(12,'fmt ');
+    view.setUint32(16,16,true);
+    view.setUint16(20,1,true);
+    view.setUint16(22,1,true);
+    view.setUint32(24,sr,true);
+    view.setUint32(28,sr*2,true);
+    view.setUint16(32,2,true);
+    view.setUint16(34,16,true);
+    writeStr(36,'data');
+    view.setUint32(40,samples*2,true);
+
+    for(let i=0;i<samples;i++){
+      const t=i/sr;
+      const ni=Math.floor(t/beat)%melody.length;
+      const local=t-ni*beat;
+      const f=melody[ni];
+      const attack=Math.min(1,local/.025);
+      const release=Math.max(0,1-local/beat);
+      const env=attack*Math.pow(release,.65);
+      let s=
+        Math.sin(2*Math.PI*f*t)*.56+
+        Math.sin(2*Math.PI*f*2*t)*.15+
+        Math.sin(2*Math.PI*(f/2)*t)*.12;
+      const phase=(t%beat);
+      if((ni%4===0)&&phase<.085){
+        const d=phase/.085;
+        s+=Math.sin(2*Math.PI*(105-45*d)*t)*(.30*(1-d));
+      }
+      s*=env*.58;
+      s=Math.max(-1,Math.min(1,s));
+      view.setInt16(44+i*2,Math.round(s*32767),true);
+    }
+
+    musicUrl=URL.createObjectURL(new Blob([buffer],{type:'audio/wav'}));
+    musicAudio=new Audio(musicUrl);
+    musicAudio.loop=true;
+    musicAudio.preload='auto';
+    musicAudio.volume=.82;
+    musicAudio.playsInline=true;
+
+    musicAudio.addEventListener('play',()=>{
+      musicBtn.textContent='🔊 Nhạc: Đang phát';
+    });
+    musicAudio.addEventListener('pause',()=>{
+      musicBtn.textContent=musicEnabled?'🎵 Bật nhạc':'🔇 Nhạc: Tắt';
+    });
+  }catch(e){
+    musicAudio=null;
+    musicBtn.textContent='Âm thanh không hỗ trợ';
   }
-  musicStep=(musicStep+8)%melody.length;
 }
-function startMusic(){
-  if(!musicEnabled)return;
-  initAudio();
-  if(!audioCtx)return;
-  audioCtx.resume();
-  clearInterval(musicLoop);
-  scheduleMusicBar();
-  musicLoop=setInterval(scheduleMusicBar,1920);
+
+function playMusic(force){
+  if(!musicEnabled&&!force)return;
+  buildMusic();
+  if(!musicAudio)return;
+  musicEnabled=true;
+  musicAudio.muted=false;
+  musicAudio.volume=.82;
+  try{
+    const p=musicAudio.play();
+    if(p&&typeof p.catch==='function'){
+      p.catch(()=>{
+        musicBtn.textContent='▶ Chạm để bật nhạc';
+        msg.textContent='Game đang chạy. Chạm nút Nhạc một lần để bật âm thanh.';
+      });
+    }
+  }catch(e){
+    musicBtn.textContent='▶ Chạm để bật nhạc';
+  }
 }
+
+function pauseMusic(){
+  if(musicAudio&&!musicAudio.paused)musicAudio.pause();
+}
+
 function stopMusic(){
-  clearInterval(musicLoop);musicLoop=null;
+  if(musicAudio){
+    musicAudio.pause();
+    try{musicAudio.currentTime=0}catch(e){}
+  }
 }
+
 function ping(good,bonus){
-  if(!audioCtx)return;
-  const t=audioCtx.currentTime;
-  if(good){tone(bonus?1046:880,t,.12,'sine',bonus?.055:.035);tone(bonus?1318:1108,t+.07,.11,'triangle',bonus?.045:.025)}
-  else{tone(155,t,.15,'sawtooth',.025)}
+  if(!navigator.vibrate)return;
+  try{
+    navigator.vibrate(good?(bonus?[18,25,18]:12):[30,20,30]);
+  }catch(e){}
 }
 
 function finish(){
@@ -298,7 +346,7 @@ function start(){
   result.classList.remove('show');clearItems();updateUI();
   msg.textContent='Cấp 1 bắt đầu! Hãy giữ combo càng lâu càng tốt.';
   startBtn.disabled=true;pauseBtn.disabled=false;
-  initAudio();startMusic();scheduleSpawner();
+  buildMusic();playMusic(true);scheduleSpawner();
   timer=setInterval(()=>{
     if(paused)return;
     time--;updateUI();
@@ -320,21 +368,26 @@ pauseBtn.addEventListener('click',()=>{
   paused=!paused;
   pauseBtn.textContent=paused?'▶ Tiếp tục':'⏸ Tạm dừng';
   if(paused){
-    clearTimeout(spawnTimer);stopMusic();
-    if(audioCtx)audioCtx.suspend();
+    clearTimeout(spawnTimer);pauseMusic();
     msg.textContent='Đã tạm dừng';
   }else{
-    if(audioCtx)audioCtx.resume();
-    scheduleSpawner();startMusic();
+    scheduleSpawner();playMusic(true);
     msg.textContent='Tiếp tục! Cẩn thận vật cản.';
   }
 });
 musicBtn.addEventListener('click',()=>{
-  musicEnabled=!musicEnabled;
-  musicBtn.textContent=musicEnabled?'🔊 Nhạc: Bật':'🔇 Nhạc: Tắt';
-  if(!musicEnabled)stopMusic();
-  else if(running&&!paused){initAudio();startMusic();}
+  buildMusic();
+  if(!musicAudio)return;
+  if(!musicAudio.paused){
+    musicEnabled=false;
+    pauseMusic();
+    musicBtn.textContent='🔇 Nhạc: Tắt';
+  }else{
+    musicEnabled=true;
+    playMusic(true);
+  }
 });
+buildMusic();
 updateUI();
 })();
 </script>
