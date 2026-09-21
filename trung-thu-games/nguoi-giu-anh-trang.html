@@ -3,54 +3,340 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Người Giữ Ánh Trăng</title>
+<title>Người Giữ Ánh Trăng - Bản Thử Thách</title>
 <style>
-:root{--bg1:#10162b;--bg2:#22345f;--card:#ffffff12;--line:#ffffff22;--text:#fff;--muted:#c8d2ee;--gold:#ffd66b}
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:linear-gradient(180deg,var(--bg1),#18213d);color:var(--text)}
-.wrap{max-width:920px;margin:auto;padding:16px}.hero,.panel,.result{border:1px solid var(--line);background:var(--card);border-radius:20px;padding:16px;backdrop-filter:blur(10px)}
-h1{margin:.2rem 0;font-size:clamp(28px,6vw,44px)}.sub{color:var(--muted);line-height:1.5}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.stat{border:1px solid var(--line);border-radius:14px;padding:10px;text-align:center}.stat b{display:block;font-size:22px}
-.arena{position:relative;height:520px;overflow:hidden;margin-top:14px;border:1px solid var(--line);border-radius:18px;background:radial-gradient(circle at 50% 15%,#fff3b846 0 12%,transparent 28%),linear-gradient(180deg,#17213e,#2e426f 65%,#12192d)}
-.moon{position:absolute;left:50%;top:18px;transform:translateX(-50%);font-size:68px;filter:drop-shadow(0 0 18px #ffe08f55)}
-.msg{position:absolute;left:12px;right:12px;bottom:12px;padding:10px;border-radius:12px;text-align:center;background:#0007;font-weight:700}
-.item{position:absolute;width:62px;height:62px;border-radius:50%;border:1px solid #ffffff33;background:#ffffff12;font-size:38px;display:grid;place-items:center;cursor:pointer;touch-action:manipulation}
-.controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}button{min-height:46px;border-radius:13px;border:1px solid var(--line);padding:0 18px;font-weight:800;font-size:16px;color:white;background:#ffffff12}button.primary{background:#6b54d8}button:disabled{opacity:.45}
-.legend{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}.pill{border:1px solid var(--line);border-radius:12px;padding:9px}
-.result{display:none;margin-top:14px;text-align:center}.result.show{display:block}.code{display:inline-block;margin-top:10px;padding:8px 12px;border:1px solid var(--line);border-radius:10px;font-weight:800}
-@media(max-width:600px){.arena{height:440px}.legend{grid-template-columns:1fr}.wrap{padding:10px}}
+:root{
+  --bg1:#0b1022;--bg2:#1c2b52;--card:#ffffff10;--line:#ffffff24;
+  --text:#fff;--muted:#cbd6ef;--accent:#7058e8;--gold:#ffd86b
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:linear-gradient(180deg,var(--bg1),#162240);color:var(--text)}
+.wrap{max-width:940px;margin:auto;padding:14px}
+.hero,.panel,.result{border:1px solid var(--line);background:var(--card);border-radius:20px;padding:16px;backdrop-filter:blur(10px)}
+h1{margin:.2rem 0;font-size:clamp(28px,6vw,44px)}
+.sub{color:var(--muted);line-height:1.5}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.stat{border:1px solid var(--line);border-radius:14px;padding:10px;text-align:center;font-size:13px;color:var(--muted)}
+.stat b{display:block;font-size:22px;color:white}
+.arena{position:relative;height:535px;overflow:hidden;margin-top:14px;border:1px solid var(--line);border-radius:18px;background:
+radial-gradient(circle at 50% 15%,#fff4bf4d 0 11%,transparent 29%),
+radial-gradient(circle at 12% 25%,#ffffff10 0 1px,transparent 2px),
+linear-gradient(180deg,#101a37,#263d6d 64%,#11182d)}
+.moon{position:absolute;left:50%;top:16px;transform:translateX(-50%);font-size:70px;filter:drop-shadow(0 0 22px #ffe08f66);pointer-events:none}
+.stage-badge{position:absolute;left:12px;top:12px;z-index:5;background:#0008;border:1px solid #ffffff25;border-radius:999px;padding:7px 10px;font-size:12px;font-weight:800}
+.msg{position:absolute;left:12px;right:12px;bottom:12px;z-index:6;padding:10px;border-radius:12px;text-align:center;background:#0009;font-weight:800}
+.item{position:absolute;border-radius:50%;border:1px solid #ffffff3a;background:#ffffff14;font-size:36px;display:grid;place-items:center;cursor:pointer;touch-action:manipulation;user-select:none;z-index:4;box-shadow:0 6px 20px #0003}
+.item.good{outline:1px solid #ffe7a533}
+.item.bad{background:#4a1d2e66}
+.item.bonus{background:#7a5d0055;box-shadow:0 0 22px #ffd86b66}
+.controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+button{min-height:46px;border-radius:13px;border:1px solid var(--line);padding:0 16px;font-weight:800;font-size:15px;color:white;background:#ffffff10}
+button.primary{background:var(--accent)}
+button:disabled{opacity:.45}
+.legend{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.pill{border:1px solid var(--line);border-radius:12px;padding:9px;font-size:14px}
+.progress{height:8px;background:#ffffff12;border-radius:999px;overflow:hidden;margin-top:10px}
+.progress>div{height:100%;width:0;background:linear-gradient(90deg,#7a66ed,#ffd86b);transition:width .25s}
+.result{display:none;margin-top:14px;text-align:center}
+.result.show{display:block}
+.code{display:inline-block;margin-top:10px;padding:8px 12px;border:1px solid var(--line);border-radius:10px;font-weight:800}
+.note{margin-top:10px;font-size:12px;color:var(--muted)}
+.flash{animation:flash .18s ease}
+@keyframes flash{50%{filter:brightness(1.5)}}
+@media(max-width:650px){
+  .arena{height:455px}.legend{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.wrap{padding:9px}
+}
+@media (prefers-reduced-motion: reduce){.item{animation:none!important}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <section class="hero">
-    <div style="font-size:12px;letter-spacing:.18em;color:#c8d2ee;font-weight:800">MINI GAME TRUNG THU</div>
+    <div style="font-size:12px;letter-spacing:.18em;color:#c8d2ee;font-weight:800">MINI GAME TRUNG THU · HARD MODE</div>
     <h1>🌕 Người Giữ Ánh Trăng</h1>
-    <div class="sub">Thu thập đèn lồng, bánh trung thu và Thỏ Ngọc để thắp sáng đêm rằm. Né mây đen và giữ combo càng lâu càng tốt.</div>
+    <div class="sub">Bản nâng cấp: vật phẩm nhỏ dần, xuất hiện nhanh hơn, bắt đầu di chuyển và có vật cản nguy hiểm. Nhạc nền Trung thu nguyên bản sẽ phát sau khi bạn nhấn Bắt đầu.</div>
     <div class="stats">
       <div class="stat">Điểm<b id="score">0</b></div>
       <div class="stat">Combo<b id="combo">x1</b></div>
       <div class="stat">Thời gian<b id="time">45</b></div>
+      <div class="stat">Cấp độ<b id="level">1</b></div>
     </div>
+    <div class="progress"><div id="progressBar"></div></div>
   </section>
+
   <section class="panel" style="margin-top:12px">
-    <div id="arena" class="arena"><div class="moon">🌕</div><div id="msg" class="msg">Nhấn “Bắt đầu” để chơi</div></div>
-    <div class="controls"><button id="start" class="primary">Bắt đầu</button><button id="pause" disabled>Tạm dừng</button><button id="reset">Chơi lại</button></div>
-    <div class="legend"><div class="pill">🏮 Đèn lồng: +10</div><div class="pill">🥮 Bánh trung thu: +20</div><div class="pill">🐇 Thỏ Ngọc: +30</div><div class="pill">☁️ Mây đen: −15</div></div>
+    <div id="arena" class="arena">
+      <div class="moon">🌕</div>
+      <div id="stageBadge" class="stage-badge">Cấp 1 · Khởi động</div>
+      <div id="msg" class="msg">Nhấn “Bắt đầu” để vào thử thách</div>
+    </div>
+
+    <div class="controls">
+      <button id="start" class="primary">🚀 Bắt đầu</button>
+      <button id="pause" disabled>⏸ Tạm dừng</button>
+      <button id="music">🔊 Nhạc: Bật</button>
+      <button id="reset">↻ Chơi lại</button>
+    </div>
+
+    <div class="legend">
+      <div class="pill">🏮 Đèn lồng: +10</div>
+      <div class="pill">🥮 Bánh trung thu: +20</div>
+      <div class="pill">🐇 Thỏ Ngọc: +35</div>
+      <div class="pill">🌟 Sao vàng hiếm: +60</div>
+      <div class="pill">☁️ Mây đen: −20</div>
+      <div class="pill">💥 Pháo lỗi: −30 & mất combo</div>
+    </div>
+    <div class="note">Từ cấp 2: bỏ lỡ vật phẩm tốt sẽ bị trừ điểm. Cấp 3: mục tiêu nhỏ hơn và di chuyển nhanh hơn.</div>
   </section>
-  <section id="result" class="result"><div id="rankIcon" style="font-size:58px">🌙</div><h2 id="rankTitle">Hoàn thành!</h2><div id="rankText" class="sub"></div><div class="code">Mã nhận quà: <span id="giftCode"></span></div></section>
+
+  <section id="result" class="result">
+    <div id="rankIcon" style="font-size:58px">🌙</div>
+    <h2 id="rankTitle">Hoàn thành!</h2>
+    <div id="rankText" class="sub"></div>
+    <div class="code">Mã nhận quà: <span id="giftCode"></span></div>
+  </section>
 </div>
+
 <script>
 (()=>{
-const arena=document.getElementById('arena'), scoreEl=document.getElementById('score'), comboEl=document.getElementById('combo'), timeEl=document.getElementById('time'), msg=document.getElementById('msg'), startBtn=document.getElementById('start'), pauseBtn=document.getElementById('pause'), resetBtn=document.getElementById('reset'), result=document.getElementById('result');
-let score=0,combo=1,streak=0,time=45,running=false,paused=false,timer=null,spawner=null;
-const items=[{e:'🏮',p:10,g:1},{e:'🏮',p:10,g:1},{e:'🥮',p:20,g:1},{e:'🐇',p:30,g:1},{e:'☁️',p:-15,g:0}];
-const upd=()=>{scoreEl.textContent=Math.max(0,score);comboEl.textContent='x'+combo;timeEl.textContent=time};
-const clearItems=()=>document.querySelectorAll('.item').forEach(x=>x.remove());
-function spawn(){if(!running||paused)return;const it=items[Math.floor(Math.random()*items.length)], b=document.createElement('button');b.className='item';b.textContent=it.e;b.style.left=Math.max(4,Math.random()*(arena.clientWidth-70))+'px';b.style.top=(92+Math.random()*(arena.clientHeight-190))+'px';b.onclick=()=>{if(!running||paused)return;if(it.g){streak++;combo=streak>=9?4:streak>=6?3:streak>=3?2:1;score+=it.p*combo;msg.textContent=it.e+' +'+(it.p*combo)+' điểm!';}else{score=Math.max(0,score-15);streak=0;combo=1;msg.textContent='☁️ Mây đen! -15 điểm';}b.remove();upd()};arena.appendChild(b);setTimeout(()=>b.remove(),1800)}
-function finish(){running=false;clearInterval(timer);clearInterval(spawner);clearItems();pauseBtn.disabled=true;startBtn.disabled=false;result.classList.add('show');let icon='🌙',title='Người gìn giữ ánh trăng',text='Bạn đã góp thêm ánh sáng cho đêm hội.';if(score>=500){icon='🏆';title='Huyền thoại Cung Trăng';text='Bạn đã mở khóa phần thưởng đặc biệt!'}else if(score>=300){icon='✨';title='Sứ giả Ánh Trăng';text='Một màn chơi rất ấn tượng!'}else if(score>=150){icon='🏮';title='Người Thắp Đèn';text='Bạn đã hoàn thành thử thách!'}document.getElementById('rankIcon').textContent=icon;document.getElementById('rankTitle').textContent=title;document.getElementById('rankText').textContent=text+' Tổng điểm: '+score+'.';document.getElementById('giftCode').textContent='TRANG-'+String(score).padStart(3,'0')+'-'+String((score*7+13)%97).padStart(2,'0');msg.textContent='Đêm rằm đã sáng! ✨'}
-function start(){if(running)return;score=0;combo=1;streak=0;time=45;running=true;paused=false;result.classList.remove('show');clearItems();upd();msg.textContent='Bắt đầu! Hãy chạm thật nhanh 🌕';startBtn.disabled=true;pauseBtn.disabled=false;spawner=setInterval(spawn,620);timer=setInterval(()=>{if(paused)return;time--;upd();if(time<=0)finish()},1000)}
-function reset(){clearInterval(timer);clearInterval(spawner);running=false;paused=false;score=0;combo=1;streak=0;time=45;clearItems();result.classList.remove('show');msg.textContent='Nhấn “Bắt đầu” để chơi';startBtn.disabled=false;pauseBtn.disabled=true;pauseBtn.textContent='Tạm dừng';upd()}
-startBtn.onclick=start;resetBtn.onclick=reset;pauseBtn.onclick=()=>{if(!running)return;paused=!paused;pauseBtn.textContent=paused?'Tiếp tục':'Tạm dừng';msg.textContent=paused?'Đã tạm dừng':'Tiếp tục săn ánh trăng!'};upd()
+const $=id=>document.getElementById(id);
+const arena=$('arena'), scoreEl=$('score'), comboEl=$('combo'), timeEl=$('time'),
+      levelEl=$('level'), progressBar=$('progressBar'), stageBadge=$('stageBadge'),
+      msg=$('msg'), startBtn=$('start'), pauseBtn=$('pause'), resetBtn=$('reset'),
+      musicBtn=$('music'), result=$('result');
+
+let score=0,combo=1,streak=0,time=45,running=false,paused=false;
+let timer=null,spawnTimer=null,musicEnabled=true,audioCtx=null,musicLoop=null,musicStep=0;
+let activeAnimations=[];
+
+const baseItems=[
+  {e:'🏮',p:10,g:true,w:30},
+  {e:'🏮',p:10,g:true,w:22},
+  {e:'🥮',p:20,g:true,w:16},
+  {e:'🐇',p:35,g:true,w:11},
+  {e:'🌟',p:60,g:true,w:5,bonus:true},
+  {e:'☁️',p:-20,g:false,w:11},
+  {e:'💥',p:-30,g:false,w:5,bomb:true}
+];
+
+function level(){
+  if(time<=15)return 3;
+  if(time<=30)return 2;
+  return 1;
+}
+function config(){
+  const l=level();
+  if(l===1)return {spawn:640,life:1550,size:60,move:18,miss:0,label:'Cấp 1 · Khởi động'};
+  if(l===2)return {spawn:500,life:1180,size:52,move:42,miss:4,label:'Cấp 2 · Tăng tốc'};
+  return {spawn:370,life:860,size:46,move:72,miss:7,label:'Cấp 3 · Bão trăng'};
+}
+function weightedPick(){
+  const total=baseItems.reduce((s,x)=>s+x.w,0);
+  let r=Math.random()*total;
+  for(const item of baseItems){r-=item.w;if(r<=0)return item}
+  return baseItems[0];
+}
+function updateUI(){
+  scoreEl.textContent=Math.max(0,score);
+  comboEl.textContent='x'+combo;
+  timeEl.textContent=time;
+  levelEl.textContent=level();
+  progressBar.style.width=((45-time)/45*100)+'%';
+  stageBadge.textContent=config().label;
+}
+function clearItems(){
+  document.querySelectorAll('.item').forEach(x=>x.remove());
+  activeAnimations.forEach(a=>{try{a.cancel()}catch{}});
+  activeAnimations=[];
+}
+function scheduleSpawner(){
+  clearTimeout(spawnTimer);
+  if(!running||paused)return;
+  spawnTimer=setTimeout(()=>{
+    spawn();
+    scheduleSpawner();
+  },config().spawn);
+}
+function spawn(){
+  if(!running||paused)return;
+  const c=config(), it=weightedPick(), b=document.createElement('button');
+  b.type='button';
+  b.className='item '+(it.g?'good ':'bad ')+(it.bonus?'bonus':'');
+  b.textContent=it.e;
+  const size=Math.max(42,c.size+(Math.random()*8-4));
+  b.style.width=size+'px'; b.style.height=size+'px';
+  b.style.left=Math.max(4,Math.random()*(arena.clientWidth-size-8))+'px';
+  b.style.top=(92+Math.random()*(arena.clientHeight-200))+'px';
+  b.setAttribute('aria-label',it.g?'Vật phẩm tốt':'Vật cản');
+
+  let clicked=false;
+  const anim=b.animate(
+    [{transform:'translate(0,0) scale(1)'},{transform:`translate(${(Math.random()-.5)*c.move}px,${(Math.random()-.5)*c.move}px) scale(.92)`},{transform:`translate(${(Math.random()-.5)*c.move}px,${(Math.random()-.5)*c.move}px) scale(1.06)`}],
+    {duration:Math.max(520,c.life*.9),iterations:Infinity,direction:'alternate',easing:'ease-in-out'}
+  );
+  activeAnimations.push(anim);
+
+  b.addEventListener('click',()=>{
+    if(!running||paused||clicked)return;
+    clicked=true;
+    try{anim.cancel()}catch{}
+    if(it.g){
+      streak++;
+      combo=streak>=14?5:streak>=10?4:streak>=6?3:streak>=3?2:1;
+      const gain=it.p*combo;
+      score+=gain;
+      msg.textContent=it.e+' +'+gain+' điểm · Combo x'+combo;
+      ping(true,it.bonus);
+    }else{
+      score=Math.max(0,score+it.p);
+      streak=0; combo=1;
+      msg.textContent=it.e+' '+it.p+' điểm · Combo về x1';
+      ping(false,false);
+      arena.classList.remove('flash'); void arena.offsetWidth; arena.classList.add('flash');
+    }
+    b.remove(); updateUI();
+  });
+
+  arena.appendChild(b);
+
+  setTimeout(()=>{
+    if(!b.isConnected||clicked)return;
+    try{anim.cancel()}catch{}
+    b.remove();
+    if(it.g){
+      streak=0; combo=1;
+      if(c.miss>0){
+        score=Math.max(0,score-c.miss);
+        msg.textContent='Bỏ lỡ '+it.e+' · -'+c.miss+' điểm · mất combo';
+        updateUI();
+      }
+    }
+  },c.life);
+}
+
+function initAudio(){
+  if(audioCtx)return;
+  const AC=window.AudioContext||window.webkitAudioContext;
+  if(!AC)return;
+  audioCtx=new AC();
+}
+function tone(freq,start,dur,type='sine',gain=.035){
+  if(!audioCtx||!musicEnabled)return;
+  const o=audioCtx.createOscillator(), g=audioCtx.createGain();
+  o.type=type;o.frequency.value=freq;
+  g.gain.setValueAtTime(0,start);
+  g.gain.linearRampToValueAtTime(gain,start+.015);
+  g.gain.exponentialRampToValueAtTime(.0001,start+dur);
+  o.connect(g).connect(audioCtx.destination);
+  o.start(start);o.stop(start+dur+.03);
+}
+function drum(start){
+  if(!audioCtx||!musicEnabled)return;
+  const o=audioCtx.createOscillator(), g=audioCtx.createGain();
+  o.type='sine';o.frequency.setValueAtTime(115,start);o.frequency.exponentialRampToValueAtTime(55,start+.12);
+  g.gain.setValueAtTime(.05,start);g.gain.exponentialRampToValueAtTime(.0001,start+.16);
+  o.connect(g).connect(audioCtx.destination);o.start(start);o.stop(start+.18);
+}
+const melody=[
+  659,784,880,784,659,587,659,784,
+  880,988,880,784,659,784,659,587,
+  523,659,784,659,587,523,587,659,
+  784,880,784,659,587,659,523,587
+];
+function scheduleMusicBar(){
+  if(!audioCtx||!musicEnabled||!running||paused)return;
+  const now=audioCtx.currentTime+.04;
+  const beat=.24;
+  for(let i=0;i<8;i++){
+    const f=melody[(musicStep+i)%melody.length];
+    tone(f,now+i*beat,.19,'triangle',.025);
+    if(i%2===0)tone(f/2,now+i*beat,.22,'sine',.012);
+    if(i===0||i===4)drum(now+i*beat);
+  }
+  musicStep=(musicStep+8)%melody.length;
+}
+function startMusic(){
+  if(!musicEnabled)return;
+  initAudio();
+  if(!audioCtx)return;
+  audioCtx.resume();
+  clearInterval(musicLoop);
+  scheduleMusicBar();
+  musicLoop=setInterval(scheduleMusicBar,1920);
+}
+function stopMusic(){
+  clearInterval(musicLoop);musicLoop=null;
+}
+function ping(good,bonus){
+  if(!audioCtx)return;
+  const t=audioCtx.currentTime;
+  if(good){tone(bonus?1046:880,t,.12,'sine',bonus?.055:.035);tone(bonus?1318:1108,t+.07,.11,'triangle',bonus?.045:.025)}
+  else{tone(155,t,.15,'sawtooth',.025)}
+}
+
+function finish(){
+  running=false;paused=false;
+  clearInterval(timer);clearTimeout(spawnTimer);clearItems();stopMusic();
+  pauseBtn.disabled=true;startBtn.disabled=false;
+  result.classList.add('show');
+
+  let icon='🌙',title='Người Gìn Giữ Ánh Trăng',text='Bạn đã vượt qua thử thách.';
+  if(score>=1100){icon='👑';title='Huyền Thoại Cung Trăng';text='Phản xạ và combo gần như hoàn hảo!'}
+  else if(score>=800){icon='🏆';title='Đại Sứ Trăng Rằm';text='Bạn đã chinh phục cấp Bão Trăng rất ấn tượng!'}
+  else if(score>=500){icon='✨';title='Sứ Giả Ánh Trăng';text='Một màn săn trăng xuất sắc!'}
+  else if(score>=250){icon='🏮';title='Người Thắp Đèn';text='Bạn đã giữ được ánh sáng cho đêm hội!'}
+
+  $('rankIcon').textContent=icon;
+  $('rankTitle').textContent=title;
+  $('rankText').textContent=text+' Tổng điểm: '+score+'.';
+  $('giftCode').textContent='TRANG-'+String(score).padStart(4,'0')+'-'+String((score*13+29)%97).padStart(2,'0');
+  msg.textContent='🌕 Hết giờ! Xem xếp hạng bên dưới.';
+}
+function start(){
+  if(running)return;
+  score=0;combo=1;streak=0;time=45;running=true;paused=false;
+  result.classList.remove('show');clearItems();updateUI();
+  msg.textContent='Cấp 1 bắt đầu! Hãy giữ combo càng lâu càng tốt.';
+  startBtn.disabled=true;pauseBtn.disabled=false;
+  initAudio();startMusic();scheduleSpawner();
+  timer=setInterval(()=>{
+    if(paused)return;
+    time--;updateUI();
+    if(time===30)msg.textContent='⚡ CẤP 2: Mục tiêu nhanh hơn, bỏ lỡ sẽ bị trừ điểm!';
+    if(time===15)msg.textContent='🔥 CẤP 3: BÃO TRĂNG! Mục tiêu nhỏ và cực nhanh!';
+    if(time<=0)finish();
+  },1000);
+}
+function reset(){
+  clearInterval(timer);clearTimeout(spawnTimer);stopMusic();
+  running=false;paused=false;score=0;combo=1;streak=0;time=45;clearItems();
+  result.classList.remove('show');msg.textContent='Nhấn “Bắt đầu” để vào thử thách';
+  startBtn.disabled=false;pauseBtn.disabled=true;pauseBtn.textContent='⏸ Tạm dừng';updateUI();
+}
+startBtn.addEventListener('click',start);
+resetBtn.addEventListener('click',reset);
+pauseBtn.addEventListener('click',()=>{
+  if(!running)return;
+  paused=!paused;
+  pauseBtn.textContent=paused?'▶ Tiếp tục':'⏸ Tạm dừng';
+  if(paused){
+    clearTimeout(spawnTimer);stopMusic();
+    if(audioCtx)audioCtx.suspend();
+    msg.textContent='Đã tạm dừng';
+  }else{
+    if(audioCtx)audioCtx.resume();
+    scheduleSpawner();startMusic();
+    msg.textContent='Tiếp tục! Cẩn thận vật cản.';
+  }
+});
+musicBtn.addEventListener('click',()=>{
+  musicEnabled=!musicEnabled;
+  musicBtn.textContent=musicEnabled?'🔊 Nhạc: Bật':'🔇 Nhạc: Tắt';
+  if(!musicEnabled)stopMusic();
+  else if(running&&!paused){initAudio();startMusic();}
+});
+updateUI();
 })();
 </script>
-</body></html>
+</body>
+</html>
