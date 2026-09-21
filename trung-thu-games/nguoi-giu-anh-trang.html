@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Người Giữ Ánh Trăng</title>
+<style>
+:root{--bg1:#10162b;--bg2:#22345f;--card:#ffffff12;--line:#ffffff22;--text:#fff;--muted:#c8d2ee;--gold:#ffd66b}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:linear-gradient(180deg,var(--bg1),#18213d);color:var(--text)}
+.wrap{max-width:920px;margin:auto;padding:16px}.hero,.panel,.result{border:1px solid var(--line);background:var(--card);border-radius:20px;padding:16px;backdrop-filter:blur(10px)}
+h1{margin:.2rem 0;font-size:clamp(28px,6vw,44px)}.sub{color:var(--muted);line-height:1.5}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.stat{border:1px solid var(--line);border-radius:14px;padding:10px;text-align:center}.stat b{display:block;font-size:22px}
+.arena{position:relative;height:520px;overflow:hidden;margin-top:14px;border:1px solid var(--line);border-radius:18px;background:radial-gradient(circle at 50% 15%,#fff3b846 0 12%,transparent 28%),linear-gradient(180deg,#17213e,#2e426f 65%,#12192d)}
+.moon{position:absolute;left:50%;top:18px;transform:translateX(-50%);font-size:68px;filter:drop-shadow(0 0 18px #ffe08f55)}
+.msg{position:absolute;left:12px;right:12px;bottom:12px;padding:10px;border-radius:12px;text-align:center;background:#0007;font-weight:700}
+.item{position:absolute;width:62px;height:62px;border-radius:50%;border:1px solid #ffffff33;background:#ffffff12;font-size:38px;display:grid;place-items:center;cursor:pointer;touch-action:manipulation}
+.controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}button{min-height:46px;border-radius:13px;border:1px solid var(--line);padding:0 18px;font-weight:800;font-size:16px;color:white;background:#ffffff12}button.primary{background:#6b54d8}button:disabled{opacity:.45}
+.legend{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}.pill{border:1px solid var(--line);border-radius:12px;padding:9px}
+.result{display:none;margin-top:14px;text-align:center}.result.show{display:block}.code{display:inline-block;margin-top:10px;padding:8px 12px;border:1px solid var(--line);border-radius:10px;font-weight:800}
+@media(max-width:600px){.arena{height:440px}.legend{grid-template-columns:1fr}.wrap{padding:10px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <div style="font-size:12px;letter-spacing:.18em;color:#c8d2ee;font-weight:800">MINI GAME TRUNG THU</div>
+    <h1>🌕 Người Giữ Ánh Trăng</h1>
+    <div class="sub">Thu thập đèn lồng, bánh trung thu và Thỏ Ngọc để thắp sáng đêm rằm. Né mây đen và giữ combo càng lâu càng tốt.</div>
+    <div class="stats">
+      <div class="stat">Điểm<b id="score">0</b></div>
+      <div class="stat">Combo<b id="combo">x1</b></div>
+      <div class="stat">Thời gian<b id="time">45</b></div>
+    </div>
+  </section>
+  <section class="panel" style="margin-top:12px">
+    <div id="arena" class="arena"><div class="moon">🌕</div><div id="msg" class="msg">Nhấn “Bắt đầu” để chơi</div></div>
+    <div class="controls"><button id="start" class="primary">Bắt đầu</button><button id="pause" disabled>Tạm dừng</button><button id="reset">Chơi lại</button></div>
+    <div class="legend"><div class="pill">🏮 Đèn lồng: +10</div><div class="pill">🥮 Bánh trung thu: +20</div><div class="pill">🐇 Thỏ Ngọc: +30</div><div class="pill">☁️ Mây đen: −15</div></div>
+  </section>
+  <section id="result" class="result"><div id="rankIcon" style="font-size:58px">🌙</div><h2 id="rankTitle">Hoàn thành!</h2><div id="rankText" class="sub"></div><div class="code">Mã nhận quà: <span id="giftCode"></span></div></section>
+</div>
+<script>
+(()=>{
+const arena=document.getElementById('arena'), scoreEl=document.getElementById('score'), comboEl=document.getElementById('combo'), timeEl=document.getElementById('time'), msg=document.getElementById('msg'), startBtn=document.getElementById('start'), pauseBtn=document.getElementById('pause'), resetBtn=document.getElementById('reset'), result=document.getElementById('result');
+let score=0,combo=1,streak=0,time=45,running=false,paused=false,timer=null,spawner=null;
+const items=[{e:'🏮',p:10,g:1},{e:'🏮',p:10,g:1},{e:'🥮',p:20,g:1},{e:'🐇',p:30,g:1},{e:'☁️',p:-15,g:0}];
+const upd=()=>{scoreEl.textContent=Math.max(0,score);comboEl.textContent='x'+combo;timeEl.textContent=time};
+const clearItems=()=>document.querySelectorAll('.item').forEach(x=>x.remove());
+function spawn(){if(!running||paused)return;const it=items[Math.floor(Math.random()*items.length)], b=document.createElement('button');b.className='item';b.textContent=it.e;b.style.left=Math.max(4,Math.random()*(arena.clientWidth-70))+'px';b.style.top=(92+Math.random()*(arena.clientHeight-190))+'px';b.onclick=()=>{if(!running||paused)return;if(it.g){streak++;combo=streak>=9?4:streak>=6?3:streak>=3?2:1;score+=it.p*combo;msg.textContent=it.e+' +'+(it.p*combo)+' điểm!';}else{score=Math.max(0,score-15);streak=0;combo=1;msg.textContent='☁️ Mây đen! -15 điểm';}b.remove();upd()};arena.appendChild(b);setTimeout(()=>b.remove(),1800)}
+function finish(){running=false;clearInterval(timer);clearInterval(spawner);clearItems();pauseBtn.disabled=true;startBtn.disabled=false;result.classList.add('show');let icon='🌙',title='Người gìn giữ ánh trăng',text='Bạn đã góp thêm ánh sáng cho đêm hội.';if(score>=500){icon='🏆';title='Huyền thoại Cung Trăng';text='Bạn đã mở khóa phần thưởng đặc biệt!'}else if(score>=300){icon='✨';title='Sứ giả Ánh Trăng';text='Một màn chơi rất ấn tượng!'}else if(score>=150){icon='🏮';title='Người Thắp Đèn';text='Bạn đã hoàn thành thử thách!'}document.getElementById('rankIcon').textContent=icon;document.getElementById('rankTitle').textContent=title;document.getElementById('rankText').textContent=text+' Tổng điểm: '+score+'.';document.getElementById('giftCode').textContent='TRANG-'+String(score).padStart(3,'0')+'-'+String((score*7+13)%97).padStart(2,'0');msg.textContent='Đêm rằm đã sáng! ✨'}
+function start(){if(running)return;score=0;combo=1;streak=0;time=45;running=true;paused=false;result.classList.remove('show');clearItems();upd();msg.textContent='Bắt đầu! Hãy chạm thật nhanh 🌕';startBtn.disabled=true;pauseBtn.disabled=false;spawner=setInterval(spawn,620);timer=setInterval(()=>{if(paused)return;time--;upd();if(time<=0)finish()},1000)}
+function reset(){clearInterval(timer);clearInterval(spawner);running=false;paused=false;score=0;combo=1;streak=0;time=45;clearItems();result.classList.remove('show');msg.textContent='Nhấn “Bắt đầu” để chơi';startBtn.disabled=false;pauseBtn.disabled=true;pauseBtn.textContent='Tạm dừng';upd()}
+startBtn.onclick=start;resetBtn.onclick=reset;pauseBtn.onclick=()=>{if(!running)return;paused=!paused;pauseBtn.textContent=paused?'Tiếp tục':'Tạm dừng';msg.textContent=paused?'Đã tạm dừng':'Tiếp tục săn ánh trăng!'};upd()
+})();
+</script>
+</body></html>
