@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Đối Đầu Cung Trăng</title>
+<style>
+:root{--bg:#10162b;--panel:#ffffff10;--line:#ffffff22;--text:#fff;--muted:#cad4ed;--accent:#6b54d8}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:linear-gradient(180deg,#10162b,#172341);color:var(--text)}
+.wrap{max-width:1000px;margin:auto;padding:14px}.card{border:1px solid var(--line);background:var(--panel);border-radius:20px;padding:16px;backdrop-filter:blur(10px)}h1{font-size:clamp(28px,6vw,44px);margin:.2rem 0}.sub{color:var(--muted);line-height:1.5}
+.setup{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.setup input,.setup select{width:100%;min-height:46px;border-radius:12px;border:1px solid var(--line);background:#ffffff0e;color:#fff;padding:0 12px;font-size:16px}.setup option{color:#111}
+button{min-height:46px;border-radius:12px;border:1px solid var(--line);background:#ffffff10;color:#fff;font-weight:800;font-size:16px;padding:0 14px}.primary{background:var(--accent)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);margin-top:12px;border:1px solid var(--line);border-radius:14px;overflow:hidden}.steps div{padding:9px;text-align:center}.steps .on{background:#6b54d8;font-weight:900}
+.game{display:none;margin-top:12px}.sky{background:radial-gradient(circle at 50% 0%,#ffe8a934,transparent 28%),linear-gradient(180deg,#121b34,#24385f);border-radius:18px;padding:12px;border:1px solid var(--line)}
+.top{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:10px}.lanes{display:grid;grid-template-columns:1fr 1fr;gap:10px}.lane{border:1px solid var(--line);background:#ffffff0f;border-radius:16px;padding:12px}.lanehead{display:flex;justify-content:space-between}.score{font-size:26px;font-weight:900}.board{min-height:190px;display:grid;align-items:center}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.tile{min-height:58px;font-size:30px}.status{min-height:24px;text-align:center;color:#dbe4ff;font-size:13px;margin-top:6px}
+.result{display:none;text-align:center;margin-top:12px}.result.show,.game.show{display:block}.finalgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:460px;margin:14px auto}.finalbox{border:1px solid var(--line);border-radius:14px;padding:12px}.finalscore{font-size:34px;font-weight:900}
+@media(max-width:680px){.lanes,.setup{grid-template-columns:1fr}.board{min-height:165px}.wrap{padding:10px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<section class="card">
+  <div style="font-size:12px;letter-spacing:.18em;color:#cad4ed;font-weight:800">MID-AUTUMN BATTLE</div>
+  <h1>🌕 Đối Đầu Cung Trăng</h1>
+  <div class="sub">Hai người chơi tranh tài qua 3 vòng: phản xạ, giải mã và trí nhớ. Tổng điểm cao hơn sẽ giành Nguyệt Quế Cung Trăng.</div>
+</section>
+<section id="setup" class="card" style="margin-top:12px">
+  <div class="setup">
+    <label>🌿 Người chơi 1<input id="name1" value="Chú Cuội" maxlength="16"></label>
+    <label>🐇 Người chơi 2<input id="name2" value="Thỏ Ngọc" maxlength="16"></label>
+    <label>Độ khó<select id="difficulty"><option value="normal">Vui vừa đủ</option><option value="hard">Thử thách lớp 8</option><option value="legend">Huyền thoại cung trăng</option></select></label>
+    <div style="display:flex;align-items:end"><button id="startGame" class="primary" style="width:100%">⚔️ Bắt đầu đối đầu</button></div>
+  </div>
+</section>
+<section id="game" class="game">
+  <div class="steps"><div id="s1">① Bắt đèn</div><div id="s2">② Mật mã</div><div id="s3">③ Trí nhớ</div></div>
+  <div class="sky" style="margin-top:10px">
+    <div class="top"><div><b id="roundTitle">Vòng 1</b> <span id="roundHint" class="sub"></span></div><div>⏳ <b id="timer">15</b>s</div></div>
+    <div class="lanes">
+      <div class="lane"><div class="lanehead"><div><b id="p1name">Chú Cuội</b><div class="sub">Người chơi 1</div></div><div class="score" id="score1">0</div></div><div id="lane1" class="board"></div><div id="status1" class="status"></div></div>
+      <div class="lane"><div class="lanehead"><div><b id="p2name">Thỏ Ngọc</b><div class="sub">Người chơi 2</div></div><div class="score" id="score2">0</div></div><div id="lane2" class="board"></div><div id="status2" class="status"></div></div>
+    </div>
+  </div>
+</section>
+<section id="result" class="card result">
+  <div id="winnerIcon" style="font-size:64px">🏆</div><h2 id="winnerTitle"></h2><div id="winnerText" class="sub"></div>
+  <div class="finalgrid"><div class="finalbox"><div id="fn1"></div><div id="fs1" class="finalscore"></div></div><div class="finalbox"><div id="fn2"></div><div id="fs2" class="finalscore"></div></div></div>
+  <div>🎟️ Mã trận: <b id="matchCode"></b></div><button id="again" class="primary" style="margin-top:12px">🔁 Đấu lại</button>
+</section>
+</div>
+<script>
+(()=>{
+const $=s=>document.querySelector(s),setup=$('#setup'),game=$('#game'),result=$('#result'),lanes=[$('#lane1'),$('#lane2')],scoresEls=[$('#score1'),$('#score2')],statuses=[$('#status1'),$('#status2')];
+let names=['Chú Cuội','Thỏ Ngọc'],scores=[0,0],round=0,time=0,ticker=null,spawner=null,difficulty='normal',streak=[0,0],memorySeq=[],memoryProgress=[0,0],puzzleProgress=[0,0];
+const icons=['🏮','☁️','⭐','🥮','🌙','🐇'], puzzles=[
+{q:'🌕 ⭐ 🌕 ⭐  ?',a:'🌕',o:['🌕','🐇','🏮']},{q:'🏮 🏮 🥮  🏮 🏮 🥮  ?',a:'🏮',o:['🥮','⭐','🏮']},{q:'🐇 ⭐ ⭐  🐇 ⭐ ⭐  ?',a:'🐇',o:['🌙','🐇','☁️']},{q:'🌙 🥮 🌙 🥮 🌙  ?',a:'🥮',o:['🏮','🥮','⭐']},{q:'⭐ 🌕 ⭐ ⭐ 🌕 ⭐ ⭐  ?',a:'🌕',o:['🌕','🐇','🥮']},{q:'🏮 🐇 🥮  🏮 🐇 🥮  ?',a:'🏮',o:['🏮','🌙','⭐']}];
+const upd=()=>scoresEls.forEach((e,i)=>e.textContent=Math.max(0,scores[i]));const setStatus=(i,t)=>statuses[i].textContent=t;const shuffle=a=>[...a].sort(()=>Math.random()-.5);
+function clearTimers(){clearInterval(ticker);clearInterval(spawner)}function countdown(sec,done){time=sec;$('#timer').textContent=time;clearInterval(ticker);ticker=setInterval(()=>{time--;$('#timer').textContent=Math.max(0,time);if(time<=0){clearInterval(ticker);done()}},1000)}
+function step(n){[1,2,3].forEach(x=>$('#s'+x).className=x===n?'on':'')}
+function start(){names=[($('#name1').value||'Chú Cuội').trim().slice(0,16),($('#name2').value||'Thỏ Ngọc').trim().slice(0,16)];difficulty=$('#difficulty').value;scores=[0,0];streak=[0,0];upd();$('#p1name').textContent=names[0];$('#p2name').textContent=names[1];setup.style.display='none';result.classList.remove('show');game.classList.add('show');reaction()}
+function reaction(){round=1;step(1);$('#roundTitle').textContent='Vòng 1 · BẮT ĐÈN SIÊU TỐC';$('#roundHint').textContent='Chỉ chạm 🏮';drawReaction(0);drawReaction(1);const speed=difficulty==='legend'?430:difficulty==='hard'?560:700;spawner=setInterval(()=>{drawReaction(0);drawReaction(1)},speed);countdown(difficulty==='legend'?18:15,()=>{clearInterval(spawner);setTimeout(puzzle,450)})}
+function drawReaction(i){lanes[i].innerHTML='';let set=shuffle(icons).slice(0,6);if(!set.includes('🏮'))set[0]='🏮';const g=document.createElement('div');g.className='grid3';set.forEach(icon=>{const b=document.createElement('button');b.className='tile';b.textContent=icon;b.onclick=()=>{if(round!==1)return;if(icon==='🏮'){streak[i]++;const m=streak[i]>=8?3:streak[i]>=4?2:1;scores[i]+=10*m;setStatus(i,'🔥 Combo x'+m+' · +'+10*m)}else{streak[i]=0;scores[i]=Math.max(0,scores[i]-5);setStatus(i,'💨 Sai · -5')}upd();drawReaction(i)};g.appendChild(b)});lanes[i].appendChild(g)}
+function puzzle(){clearTimers();round=2;step(2);puzzleProgress=[0,0];$('#roundTitle').textContent='Vòng 2 · MẬT MÃ TRĂNG RẰM';$('#roundHint').textContent='Đúng +25 · Sai -8';renderPuzzle(0);renderPuzzle(1);countdown(difficulty==='legend'?22:28,memory)}
+function renderPuzzle(i){const limit=difficulty==='normal'?4:difficulty==='hard'?5:6;if(puzzleProgress[i]>=limit){lanes[i].innerHTML='<div style="text-align:center;font-size:38px">🔓<div style="font-size:16px;font-weight:800">Đã phá mã!</div></div>';return}const p=puzzles[puzzleProgress[i]%puzzles.length];lanes[i].innerHTML='';const q=document.createElement('div');q.style='text-align:center;font-size:28px;font-weight:900;margin-bottom:10px';q.textContent=p.q;lanes[i].appendChild(q);const g=document.createElement('div');g.className='grid3';shuffle(p.o).forEach(opt=>{const b=document.createElement('button');b.className='tile';b.textContent=opt;b.onclick=()=>{if(round!==2)return;if(opt===p.a){scores[i]+=25;setStatus(i,'✨ Chính xác +25')}else{scores[i]=Math.max(0,scores[i]-8);setStatus(i,'❌ Sai -8')}puzzleProgress[i]++;upd();renderPuzzle(i)};g.appendChild(b)});lanes[i].appendChild(g)}
+function memory(){clearTimers();round=3;step(3);$('#roundTitle').textContent='Vòng 3 · MẬT LỆNH CUNG TRĂNG';$('#roundHint').textContent='Ghi nhớ rồi nhập lại';memoryProgress=[0,0];const pool=['🌕','🏮','🐇','🥮','⭐'],len=difficulty==='normal'?4:difficulty==='hard'?5:6;memorySeq=Array.from({length:len},()=>pool[Math.floor(Math.random()*pool.length)]);[0,1].forEach(i=>{lanes[i].innerHTML='<div style="text-align:center"><div class="sub">Hãy ghi nhớ</div><div style="font-size:30px;margin-top:10px">'+memorySeq.join(' ')+'</div></div>';setStatus(i,'3 giây ghi nhớ...')});$('#timer').textContent='3';let p=3;const t=setInterval(()=>{p--;$('#timer').textContent=Math.max(0,p);if(p<=0){clearInterval(t);renderMemory(0);renderMemory(1);countdown(difficulty==='legend'?16:20,finish)}},1000)}
+function renderMemory(i){lanes[i].innerHTML='';const info=document.createElement('div');info.textContent='Đã nhập: '+memoryProgress[i]+'/'+memorySeq.length;info.style='text-align:center;margin-bottom:8px';lanes[i].appendChild(info);const g=document.createElement('div');g.className='grid5';['🌕','🏮','🐇','🥮','⭐'].forEach(icon=>{const b=document.createElement('button');b.className='tile';b.textContent=icon;b.onclick=()=>{if(round!==3)return;const expected=memorySeq[memoryProgress[i]];if(icon===expected){memoryProgress[i]++;scores[i]+=15;setStatus(i,'✅ Đúng +15');if(memoryProgress[i]===memorySeq.length){scores[i]+=40;lanes[i].innerHTML='<div style="text-align:center;font-size:42px">🌕<div style="font-size:16px;font-weight:800">Đã mở Cổng Trăng!</div></div>';setStatus(i,'🌟 Hoàn hảo +40')}else renderMemory(i)}else{scores[i]=Math.max(0,scores[i]-5);memoryProgress[i]=0;setStatus(i,'🌫️ Sai chuỗi -5');renderMemory(i)}upd()};g.appendChild(b)});lanes[i].appendChild(g)}
+function finish(){clearTimers();round=0;game.classList.remove('show');result.classList.add('show');$('#fn1').textContent=names[0];$('#fn2').textContent=names[1];$('#fs1').textContent=scores[0];$('#fs2').textContent=scores[1];let title,text,icon='🏆';if(scores[0]===scores[1]){title='HÒA CUNG TRĂNG!';text='Hai chiến binh cân tài cân sức.';icon='🌕'}else{const w=scores[0]>scores[1]?0:1;title=names[w]+' CHIẾN THẮNG!';text='Nguyệt Quế Cung Trăng thuộc về '+names[w]+'.'}$('#winnerIcon').textContent=icon;$('#winnerTitle').textContent=title;$('#winnerText').textContent=text;$('#matchCode').textContent='MOON-'+String((scores[0]*7+scores[1]*11+37)%10000).padStart(4,'0')}
+$('#startGame').onclick=start;$('#again').onclick=()=>{result.classList.remove('show');setup.style.display='block'};upd()
+})();
+</script>
+</body></html>
